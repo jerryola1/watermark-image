@@ -15,23 +15,30 @@ def watermark_image(input_image_path, output_image_path, watermark_text):
     txt = Image.new('RGBA', original_image.size, (255,255,255,0))
 
     # Choose a font and size for the watermark
-    # font = ImageFont.load_default()
-    font = ImageFont.truetype("arial.ttf", 40)
+    font = ImageFont.truetype("/mnt/d/WATERMARK/Kode_Mono/static/KodeMono-Bold.ttf", 40)
     
     # Initialize ImageDraw
     d = ImageDraw.Draw(txt)
 
-    # Apply the watermark text
-    # d.text((10,10), watermark_text, fill=(255,255,255,128), font=font)
     # fill = (255,255,255,128)  # Semi-transparent white
-    # x, y = 10, 10  # Adjust as needed
-    # for offset in range(10):  # Adjust the range for bolder text
-    #     d.text((x+offset, y+offset), watermark_text, font=font, fill=fill)
+    width, height = original_image.size
 
+    # Function to calculate text size
+    def get_text_size(text, font):
+        im = Image.new('RGB', (1, 1))
+        draw = ImageDraw.Draw(im)
+        bbox = draw.textbbox((0, 0), text, font=font)
+        width = bbox[2] - bbox[0]
+        height = bbox[3] - bbox[1]
+        return width, height
+
+    # Use the function to get text width and height
+    textwidth, textheight = get_text_size(watermark_text, font)
+
+    # Calculate position for the text
     fill = (255,255,255,128)  # Semi-transparent white
     width, height = original_image.size
-    textwidth, textheight = d.textsize(watermark_text, font=font)
-    x, y = (width - textwidth) / 2, (height - textheight) / 2  # Center the text
+    x, y = (width - textwidth) / 2, (height - textheight) / 2  
 
     # Draw the text onto the overlay image
     d.text((x, y), watermark_text, font=font, fill=fill)
