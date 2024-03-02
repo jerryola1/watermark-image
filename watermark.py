@@ -38,7 +38,7 @@ def watermark_image(input_image_path, output_image_path, watermark_text):
     # Calculate position for the text
     fill = (255,255,255,128)  # Semi-transparent white
     width, height = original_image.size
-    x, y = (width - textwidth) / 2, (height - textheight) / 2  
+    x, y = (width - textwidth) / 5, (height - textheight) / 5  
 
     # Draw the text onto the overlay image
     d.text((x, y), watermark_text, font=font, fill=fill)
