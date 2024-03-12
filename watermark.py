@@ -36,7 +36,7 @@ def watermark_image(input_image_path, output_image_path, watermark_text):
     textwidth, textheight = get_text_size(watermark_text, font)
 
     # Calculate position for the text
-    fill = (255,255,255,128)  # Semi-transparent white
+    fill = (255,255,255,120)  # Semi-transparent white
     width, height = original_image.size
     x, y = (width - textwidth) / 5, (height - textheight) / 5  
 
